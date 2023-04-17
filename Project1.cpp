@@ -228,16 +228,6 @@ int main()
 
 
 
-
-
-
-
-
-
-
-
-
-
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -255,6 +245,11 @@ class info{
         for(int i=0;i<brand.size();i++){
             cout<<i+1<<" "<<brand[i]<<" "<<model[i]<<" "<<rent[i]<<" "<<endl;
         }
+    }
+    void rem(int in){
+        brand.erase(brand.begin()+in-1);
+        model.erase(model.begin()+in-1);
+        rent.erase(rent.begin()+in-1);
     }
     
     
@@ -283,19 +278,22 @@ int main(){
         cout<<"5: Return a car"<<endl;
         int x;
         cin>>x;
+        string br,cr,rt;
+        int ind;
         switch(x){
             case 1:
             inf.disp();
             break;
             case 2:
-            string br,cr,rt;
             cout<<endl<<"Enter Brand name: "<<endl;cin>>br;
             cout<<endl<<"Enter Car name: "<<endl;cin>>cr;
             cout<<endl<<"Enter Rent: "<<endl;cin>>rt;
             inf.add(br,cr,rt);
             break;
             case 3:
-            
+            cout<<endl<<"Enter the index number of car to be removed: "<<endl;
+            cin>>ind;
+            inf.rem(ind);
             break;
             case 4:
             break;
@@ -308,4 +306,3 @@ int main(){
     }
     return 0;
 }
-
