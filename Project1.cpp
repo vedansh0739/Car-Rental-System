@@ -226,16 +226,16 @@ int main()
 
 
 
-
-
 #include<bits/stdc++.h>
 using namespace std;
 
 class info{
-    public:
+    friend class user;
+    friend class admin;
     vector<string>brand;
     vector<string>model;
     vector<string>rent;
+    public:
     void add(string b,string m, string r){
         brand.push_back(b);
         model.push_back(m);
@@ -254,7 +254,21 @@ class info{
     
     
 };
+class user:public info{
+    public:
+    
+};
+class admin:public info{
+    public:
+    void add(string b,string m, string r,info&){
+        brand.push_back(b);
+        model.push_back(m);
+        rent.push_back(r);
+    }
 
+    
+    
+};
 
 
 
@@ -270,6 +284,7 @@ int main(){
     inf.add("mercedes","s class","330");
     inf.add("audi","a4","430");
     inf.add("datsun","go","200");
+    admin admin1;
     for(int i=1;i<100;i++){
         cout<<"1: Display inventory"<<endl;
         cout<<"2: Add car to inventory"<<endl;
@@ -296,11 +311,14 @@ int main(){
             inf.rem(ind);
             break;
             case 4:
+            cout<<endl<<"Enter index number of car to be rented: "endl;
+            cin>>ind;
+            
             break;
             case 5:
             break;
             default:
-            cout<<"enter a valid number";
+            cout<<endl<<"enter a valid number"<<endl;
         }
         
     }
