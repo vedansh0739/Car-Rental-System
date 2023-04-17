@@ -213,3 +213,99 @@ int main()
 }
  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class info{
+    public:
+    vector<string>brand;
+    vector<string>model;
+    vector<string>rent;
+    void add(string b,string m, string r){
+        brand.push_back(b);
+        model.push_back(m);
+        rent.push_back(r);
+    }   
+    void disp(){
+        for(int i=0;i<brand.size();i++){
+            cout<<i+1<<" "<<brand[i]<<" "<<model[i]<<" "<<rent[i]<<" "<<endl;
+        }
+    }
+    
+    
+};
+
+
+
+
+
+int main(){
+    info inf;
+    inf.add("hyundai","creta","250");
+    inf.add("suzuki","800","200");
+    inf.add("honda","city","300");
+    inf.add("toyota","fortuner","300");
+    inf.add("bmw","5 series","400");
+    inf.add("tata","safari","230");
+    inf.add("mercedes","s class","330");
+    inf.add("audi","a4","430");
+    inf.add("datsun","go","200");
+    for(int i=1;i<100;i++){
+        cout<<"1: Display inventory"<<endl;
+        cout<<"2: Add car to inventory"<<endl;
+        cout<<"3: Remove car from inventory"<<endl;
+        cout<<"4: Rent a car"<<endl;
+        cout<<"5: Return a car"<<endl;
+        int x;
+        cin>>x;
+        switch(x){
+            case 1:
+            inf.disp();
+            break;
+            case 2:
+            string br,cr,rt;
+            cout<<endl<<"Enter Brand name: "<<endl;cin>>br;
+            cout<<endl<<"Enter Car name: "<<endl;cin>>cr;
+            cout<<endl<<"Enter Rent: "<<endl;cin>>rt;
+            inf.add(br,cr,rt);
+            break;
+            case 3:
+            
+            break;
+            case 4:
+            break;
+            case 5:
+            break;
+            default:
+            cout<<"enter a valid number";
+        }
+        
+    }
+    return 0;
+}
+
