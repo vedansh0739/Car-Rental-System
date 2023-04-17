@@ -222,10 +222,6 @@ int main()
 
 
 
-
-
-
-
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -260,10 +256,15 @@ class user:public info{
 };
 class admin:public info{
     public:
-    void add(string b,string m, string r,info&){
-        brand.push_back(b);
-        model.push_back(m);
-        rent.push_back(r);
+    void add(string b,string m, string r,info& info1){
+        info1.brand.push_back(b);
+        info1.model.push_back(m);
+        info1.rent.push_back(r);
+    }
+    void rem(int in,info& info1){
+        info1.brand.erase(info1.brand.begin()+in-1);
+        info1.model.erase(info1.model.begin()+in-1);
+        info1.rent.erase(info1.rent.begin()+in-1);
     }
 
     
@@ -286,41 +287,62 @@ int main(){
     inf.add("datsun","go","200");
     admin admin1;
     for(int i=1;i<100;i++){
-        cout<<"1: Display inventory"<<endl;
-        cout<<"2: Add car to inventory"<<endl;
-        cout<<"3: Remove car from inventory"<<endl;
-        cout<<"4: Rent a car"<<endl;
-        cout<<"5: Return a car"<<endl;
-        int x;
-        cin>>x;
-        string br,cr,rt;
-        int ind;
-        switch(x){
-            case 1:
-            inf.disp();
-            break;
-            case 2:
-            cout<<endl<<"Enter Brand name: "<<endl;cin>>br;
-            cout<<endl<<"Enter Car name: "<<endl;cin>>cr;
-            cout<<endl<<"Enter Rent: "<<endl;cin>>rt;
-            inf.add(br,cr,rt);
-            break;
-            case 3:
-            cout<<endl<<"Enter the index number of car to be removed: "<<endl;
-            cin>>ind;
-            inf.rem(ind);
-            break;
-            case 4:
-            cout<<endl<<"Enter index number of car to be rented: "endl;
-            cin>>ind;
-            
-            break;
-            case 5:
-            break;
-            default:
-            cout<<endl<<"enter a valid number"<<endl;
+        cout<<"1: Employee"<<endl;
+        cout<<"2: Customer"<<endl;
+        int yy;
+        cin>>yy;
+        if(yy==1){
+            cout<<"1: Display inventory"<<endl;
+            cout<<"2: Add car to inventory"<<endl;
+            cout<<"3: Remove car from inventory"<<endl;
+            cout<<"4: Stop"<<endl;
+            int x;
+            cin>>x;
+            string br,cr,rt;
+            int ind,ind1;
+            switch(x){
+                case 1:
+                inf.disp();
+                break;
+                case 2:
+                cout<<endl<<"Enter Brand name: "<<endl;cin>>br;
+                cout<<endl<<"Enter Car name: "<<endl;cin>>cr;
+                cout<<endl<<"Enter Rent: "<<endl;cin>>rt;
+                admin1.add(br,cr,rt,inf);
+                break;
+                case 3:
+                cout<<endl<<"Enter the index number of car to be removed: "<<endl;
+                cin>>ind1;
+                admin1.rem(ind1,inf);
+                break;
+                case 4:
+                return 0;
+                break;
+                default:
+                cout<<endl<<"Enter a valid number"<<endl;
+            }   
         }
-        
+        else{
+            cout<<"1: Display inventory"<<endl;
+            cout<<"2: Rent a car"<<endl;
+            cout<<"3: Return a car"<<endl;
+            cout<<"4: Stop"<<endl;
+            int x;
+            cin>>x;
+            switch(x){
+                case 1:
+                break;
+                case 2:
+                break;
+                case 3:
+                break;
+                case 4:
+                return 0;
+                break;
+                default:
+                cout<<endl<<"Enter a valid number"<<endl;
+            }
+        }
     }
     return 0;
 }
