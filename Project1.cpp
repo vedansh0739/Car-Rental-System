@@ -223,6 +223,7 @@ int main()
 
 
 
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -313,6 +314,7 @@ class user:public info{
         if(mp.find(idno2)!=mp.end()){
             disp1(idno2);
             info1.add(mp[idno2][2],mp[idno2][3],mp[idno2][4]);
+            mp.erase(idno2);
         }
         else{
             cout<<"You need to rent a car first"<<endl;
@@ -339,6 +341,10 @@ class admin:public info{
         info1.rent.erase(info1.rent.begin()+in-1);
     }
     void view(user& user1){
+        if(user1.mp.empty()){
+            cout<<"No one has currently rented a car"<<endl;
+            return;
+        }
         for(auto x:user1.mp){
             cout<<"Id: "<<x.first<<endl;
             cout<<"Name: "<<x.second[0]<<endl;
