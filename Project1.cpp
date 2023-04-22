@@ -223,38 +223,6 @@ int main()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -280,13 +248,84 @@ class info{
         model.erase(model.begin()+in-1);
         rent.erase(rent.begin()+in-1);
     }
-    
-    
 };
+
+
+
+
+
 class user:public info{
+    friend class admin;
     public:
+    map<int,vector<string>>mp;
+    void disp1(int idno1){
+        
+        cout<<"Name: ";
+        cout<<mp[idno1][0]<<endl;
+        cout<<"No of days since you rented the car: ";    
+        cout<<mp[idno1][1]<<endl;
+        cout<<"Brand of car: ";
+        cout<<mp[idno1][2]<<endl;
+        cout<<"Car Model: ";
+        cout<<mp[idno1][3]<<endl;    
+        cout<<"Total amount to be paid: ";    
+        cout<<stoi(mp[idno1][4])*stoi(mp[idno1][1])<<endl;
+        
+    }
+    void rent(info& info1){
+        
+        int idno1;
+        cout<<endl<<"Enter id: "<<endl;
+        cin>>idno1;
+        if(mp.find(idno1)!=mp.end()){
+            cout<<"One user can only rent one car at a time"<<endl;return;
+        }
+        cout<<"Enter your name: "<<endl;
+        string name1;
+        cin>>name1;
+        string carname1;
+        cout<<"Enter name of the car you want to rent: \n";
+        
+        cin>>carname1;
+        if(find(info1.model.begin(),info1.model.end(),carname1)!=info1.model.end()){
+            cout<<"How many days do you want to rent the car for? "<<endl;
+            string nodays1;
+            cin>>nodays1;
+            
+            mp[idno1].push_back(name1);
+            mp[idno1].push_back(nodays1);
+            mp[idno1].push_back(info1.brand[find(info1.model.begin(),info1.model.end(),carname1)-info1.model.begin()]);
+            mp[idno1].push_back(carname1);
+            mp[idno1].push_back(info1.rent[find(info1.model.begin(),info1.model.end(),carname1)-info1.model.begin()]);            
+            info1.rem(find(info1.model.begin(),info1.model.end(),carname1)-info1.model.begin()+1);
+                
+            
+        }
+        else{
+            cout<<"Car not available"<<endl;
+            return;
+        }
+    }
+    void return1(info& info1){
+        cout<<"Enter you ID:"<<endl;
+        int idno2;
+        cin>>idno2;
+        if(mp.find(idno2)!=mp.end()){
+            disp1(idno2);
+            info1.add(mp[idno2][2],mp[idno2][3],mp[idno2][4]);
+        }
+        else{
+            cout<<"You need to rent a car first"<<endl;
+            
+        }
+    }
     
 };
+
+
+
+
+
 class admin:public info{
     public:
     void add(string b,string m, string r,info& info1){
@@ -298,6 +337,17 @@ class admin:public info{
         info1.brand.erase(info1.brand.begin()+in-1);
         info1.model.erase(info1.model.begin()+in-1);
         info1.rent.erase(info1.rent.begin()+in-1);
+    }
+    void view(user& user1){
+        for(auto x:user1.mp){
+            cout<<"Id: "<<x.first<<endl;
+            cout<<"Name: "<<x.second[0]<<endl;
+            cout<<"Days: "<<x.second[1]<<endl;
+            cout<<"Brand: "<<x.second[2]<<endl;
+            cout<<"Car Model: "<<x.second[3]<<endl;
+            cout<<"Rent to be paid: "<<x.second[4]<<endl;
+            cout<<endl;
+        }
     }
 
     
@@ -313,12 +363,13 @@ int main(){
     inf.add("suzuki","800","200");
     inf.add("honda","city","300");
     inf.add("toyota","fortuner","300");
-    inf.add("bmw","5 series","400");
+    inf.add("bmw","5series","400");
     inf.add("tata","safari","230");
-    inf.add("mercedes","s class","330");
+    inf.add("mercedes","sclass","330");
     inf.add("audi","a4","430");
     inf.add("datsun","go","200");
     admin admin1;
+    user user1;
     for(int i=1;i<100;i++){
         cout<<"1: Employee"<<endl;
         cout<<"2: Customer"<<endl;
@@ -328,7 +379,8 @@ int main(){
             cout<<"1: Display inventory"<<endl;
             cout<<"2: Add car to inventory"<<endl;
             cout<<"3: Remove car from inventory"<<endl;
-            cout<<"4: Stop"<<endl;
+            cout<<"4: Display list of users who have rented a car"<<endl;
+            cout<<"5: Stop"<<endl;
             int x;
             cin>>x;
             string br,cr,rt;
@@ -349,6 +401,9 @@ int main(){
                 admin1.rem(ind1,inf);
                 break;
                 case 4:
+                admin1.view(user1);
+                break;
+                case 5:
                 return 0;
                 break;
                 default:
@@ -364,10 +419,17 @@ int main(){
             cin>>x;
             switch(x){
                 case 1:
+                inf.disp();
                 break;
                 case 2:
+                user1.rent(inf);
+                
+                
+                    
+        
                 break;
                 case 3:
+                user1.return1(inf);
                 break;
                 case 4:
                 return 0;
@@ -379,6 +441,42 @@ int main(){
     }
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
